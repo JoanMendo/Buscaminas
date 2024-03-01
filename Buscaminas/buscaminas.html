@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buscaminas</title>
+    <link rel="stylesheet" type="text/css" href="buscaminas.css">
+    <script src="Buscaminas.js" defer></script>
+   
+</head>
+
+<body>
+<h1>Buscaminas</h1>
+<label for = "Alto">Alto</label>
+<input type = "number" id = "Alto" min = "8" max = "24" value = "10">
+<label for = "Ancho">Ancho</label>
+<input type = "number" id = "Ancho" min = "8" max = "30" value = "10">
+<label for = "Minas">Minas</label>
+<input type = "number" id = "Minas" min = "1" max = "99" value = "10">
+<button id = "startButton" onclick = "checkValues()">aa</button>
+<button id="reloadButton" onclick= "location.reload()">Reiniciar</button>
+<div id = "buscaMinas">
+    <div id= "container"> 
+              
+    </div>
+</div>
+   
+
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAWe1M06UF2 - Ex03</title>
+    <style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        .code,
+        .result {
+            font-family: 'Courier New', Courier, monospace;
+            color: grey;
+        }
+
+        .result {
+            color: blue;
+        }
+
+        article {
+            border: 1px solid grey;
+            margin: 5px;
+            padding: 2px;
+        }
+
+        .importante {
+            color: red;
+        }
+
+        .puntuacion {
+            font-style: italic;
+
+        }
+
+        .codigo {
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+            background-color: black;
+        }
+
+        .usuario {
+            font-family: 'Courier New', Courier, monospace;
+            color:black;
+            background-color:  rgba(128, 128, 128, 0.411);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>DAMv Examen de JavaScript</h1>
+    <h2>DAMv1M07-UF1 2023-24</h2>
+    <article>
+        <h2> Entrega</h2>
+        <p>Cambia el nombre de este fichero a <span class="importante">ApellidoNombre.html</span> y será el fichero
+            inicial de entrada a tu programa</p>
+    </article>
+    <article>
+        <h2> ITB Red Social</h2>
+        <p>En el ITB se quiere crear una pequeña red social para que toda la comunidad pueda hacer publicaciones y
+            añadir comentarios. Crea una estructura básica que implemente dichas necesidades, podrás personalizar las
+            clases y añadir más funcionalidades según lo veas necesario.</p>
+
+        <h4>Clase Usuario</h4>
+        <p>
+            Contiene los datos esenciales de un usuario, tiene: nombre, apellido, edad (privada) y nick
+        </p>
+        <h4>Clase Publicacion</h4>
+        <p>
+            Clase que representa una publicación de la red social, tiene: Contenido, fecha de publicación, número de
+            likes (podrán añadirse o quitarse).
+        </p>
+        <h4>Clase Comentario</h4>
+        <p>
+            Texto del comentario, fecha de publicación y el usuario que ha realizado el comentario.
+        </p>
+        <h4>Clase UsuarioRedSocial</h4>
+        <p>
+            Hereda de la clase Usuario, Esta clase debe almacenar todas las publicaciones por un lado y los todos
+            comentarios por otro, todos hechos por el usuario.
+        </p>
+        <h4>Clase Lista Usuarios </h4>
+        <p>
+            Contiene todas las instancias de UsuarioRedSocial. Dispone de métodos para insertar nuevos usuarios, obtener
+            las información de un usuario concreto, mostrar la información de todos los usuarios.
+        </p>
+        <h4>JSON</h4>
+        <p class="codigo">
+            {<br>
+            "usuarios": [<br>
+            { "nombre": "Juan", "apellido": "González", "nick": "juang", "edad": 30 },<br>
+            { "nombre": "María", "apellido": "López", "nick": "marial", "edad": 25 },<br>
+            { "nombre": "Pedro", "apellido": "Martínez", "nick": "pedrom", "edad": 35 },<br>
+            { "nombre": "Ana", "apellido": "Sánchez", "nick": "anas", "edad": 28 }<br>
+            ],<br>
+            "publicaciones": [<br>
+            { "contenido": "¡Hola a todos!", "fecha": "2024-02-15", "likes": 10, "autor": "juang" },<br>
+            { "contenido": "Hoy es un gran día", "fecha": "2024-02-14", "likes": 15, "autor": "marial" },<br>
+            { "contenido": "Me encanta programar", "fecha": "2024-02-13", "likes": 20, "autor": "pedrom" }<br>
+            ],<br>
+            "comentarios": [<br>
+            { "contenido": "Genial!", "fecha": "2024-02-15", "autor": "marial"},<br>
+            { "contenido": "Estoy de acuerdo", "fecha": "2024-02-15", "autor": "anas"},<br>
+            { "contenido": "Muy buena publicación", "fecha": "2024-02-14", "autor": "juang"},<br>
+            { "contenido": "Sí, es fantástico", "fecha": "2024-02-13", "autor": "pedrom"},<br>
+            { "contenido": "Totalmente", "fecha": "2024-02-13", "autor": "anas"},<br>
+            { "contenido": "Me gusta mucho", "fecha": "2024-02-13", "autor": "marial"},<br>
+            { "contenido": "Eso es genial", "fecha": "2024-02-14", "autor": "pedrom"},<br>
+            { "contenido": "Buen trabajo!", "fecha": "2024-02-14", "autor": "juang"}<br>
+            ]<br>
+            }<br>
+        </p>
+
+        <h4>Implementación<span class="puntuacion"> 10 puntos (5,1,1,2,1) </span></h4>
+        <ol>
+            <li>Partiendo de un Json inicial, crea los objetos necesarios para almacenar toda esta información.</li>
+            <li>Añade un nuevo usuario <i>TU</i></li>
+            <li>Añade una nueva publicación a <i>marial</i> y otra a ti</li>
+            <li>Crea un método o función que muestro los datos, publicaciones y comentarios de un usuario concreto
+                (podeis hacerlo directamente con texto HTML). <i>marial</i></li>
+            <li>Crea un método o función que muestre toda la información de los usuarios de la red social mostrando sus
+                datos, sus publicaciones y sus comentarios (podeis hacerlo directamente con texto HTML).</li>
+        </ol>
+
+        <h5>Nota: Implementa todo en este fichero.</h5>
+
+        <h4 id = "resultado">Resultado</h4>
+    </article>
+
+    <script>
+        /***************************************************************************/
+        /**********************             CLASES              ********************/
+        /***************************************************************************/
+        class Usuario {
+            #edad;
+            constructor(nombre, apellido, nick, edad) {
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.nick = nick;
+                this.#edad = edad;
+            }
+            getEdad() {
+                return this.#edad;
+            }
+        }
+
+        class Publicaciones {
+            constructor(contenido, fecha, likes, autor) {
+                this.contenido = contenido;
+                this.fecha = fecha;
+                this.likes = likes;
+                this.autor = autor;
+                let getPublications = (autor) =>  ({contenido} + " " + {fecha} +  " " + {likes});
+                let addLike = (autor, contenido) => ({likes} + 1);
+                let removeLike = (autor, contenido) => ({likes} - 1);      
+            }
+           
+                  
+        }
+
+        class Comentarios {
+            constructor(contenido, fecha, autor) {
+                this.contenido = contenido;
+                this.fecha = fecha;
+                this.autor = autor;
+                let getComentarios = (autor) => ({contenido} + " " + {fecha});
+            }
+
+            
+        }
+
+        class UsuarioRedSocial extends Usuario {
+            constructor(nombre, apellido, nick, edad, publicaciones, comentarios) {
+                super(nombre, apellido, nick, edad);
+                this.publicaciones = getPublications(nick);
+                this.comentarios = getComentarios(nick);
+            }
+        }
+        /***************************************************************************/
+        /**********************         METODOS/FUNCIONES       ********************/
+        /***************************************************************************/
+
+        function getPublicaciones(publicaciones, nick) {
+            let hasPublications = false;
+            console.log("\nPublicaciones de " + nick + "\n");
+
+            // let publicacionesEscritas = document.getElementById("resultado")
+            // let nombreEscrito = document.createElement("p");
+            // nombreEscrito.textContent = ("\nPublicaciones de " + nick);
+            // publicacionesEscritas.appendChild = (nombreEscrito);
+
+            for (let i = 0; i < publicaciones.length; i++) {
+                if (publicaciones[i].autor === nick) {
+                    console.log(publicaciones[i]);
+                    hasPublications = true;
+                }
+            }
+            if (!hasPublications) {
+                console.log("No hay publicaciones de " + nick);
+            }
+        }
+
+        function getComentarios(comentarios, nick) {
+            let hasComments = false;
+            console.log("\nComentarios de " + nick + "\n");
+
+            // let comentariosEscritos = document.getElementById("resultado")
+            // let nombreEscrito = document.createElement("p");
+            // nombreEscrito.textContent = ("\nComentarios de " + nick);
+            // comentariosEscritos.appendChild = (nombreEscrito);
+            
+            for (let i = 0; i < comentarios.length; i++) {
+                if (comentarios[i].autor === nick) {
+                    console.log(comentarios[i]);
+                    hasComments = true;
+                }
+            }
+            if (!hasComments) {
+                console.log("No hay comentarios de " + nick);
+            }
+        }
+        
+        function getUserData(nick, comentarios, publicaciones) {
+            getPublicaciones(publicaciones, nick);
+            getComentarios(comentarios, nick);
+        }
+
+        function getAllData(usersCreated, publicaciones, comentarios) {
+            console.log("\nTodos los usuarios:");
+            for (let i = 0; i < usersCreated.length; i++) {
+                console.log("\n Usuario " + usersCreated[i].nick);
+                console.log(usersCreated[i]);
+                getUserData(usersCreated[i].nick, comentarios, publicaciones);
+            }
+            
+        }
+        
+        const datosRedSocialJson = `{
+  "usuarios": [
+    { "nombre": "Juan", "apellido": "González", "nick": "juang", "edad": 30 },
+    { "nombre": "María", "apellido": "López", "nick": "marial", "edad": 25 },
+    { "nombre": "Pedro", "apellido": "Martínez", "nick": "pedrom", "edad": 35 },
+    { "nombre": "Ana", "apellido": "Sánchez", "nick": "anas", "edad": 28 }
+  ],
+  "publicaciones": [
+    { "contenido": "¡Hola a todos!", "fecha": "2024-02-15", "likes": 10, "autor": "juang" },
+    { "contenido": "Hoy es un gran día", "fecha": "2024-02-14", "likes": 15, "autor": "marial" },
+    { "contenido": "Me encanta programar", "fecha": "2024-02-13", "likes": 20, "autor": "pedrom" }
+  ],
+  "comentarios": [
+    { "contenido": "Genial!", "fecha": "2024-02-15", "autor": "marial"},
+    { "contenido": "Estoy de acuerdo", "fecha": "2024-02-15", "autor": "anas"},
+    { "contenido": "Muy buena publicación", "fecha": "2024-02-14", "autor": "juang"},
+    { "contenido": "Sí, es fantástico", "fecha": "2024-02-13", "autor": "pedrom"},
+    { "contenido": "Totalmente", "fecha": "2024-02-13", "autor": "anas"},
+    { "contenido": "Me gusta mucho", "fecha": "2024-02-13", "autor": "marial"},
+    { "contenido": "Eso es genial", "fecha": "2024-02-14", "autor": "pedrom"},
+    { "contenido": "Buen trabajo!", "fecha": "2024-02-14", "autor": "juang"}
+  ]
+}`;
+
+let datosRedSocial = JSON.parse(datosRedSocialJson);
+let usuarios = datosRedSocial.usuarios;
+let publicaciones = datosRedSocial.publicaciones;
+let comentarios = datosRedSocial.comentarios;
+let usersCreated = [];
+
+
+console.log("Usuarios");
+for (let i = 0; i < usuarios.length; i++) {
+    usersCreated[i] = new Usuario(usuarios[i].nombre, usuarios[i].apellido, usuarios[i].nick, usuarios[i].edad);
+    console.log(usersCreated[i]);
+}
+    usersCreated.push(new Usuario("Joan", "Mendo", "mendojoan", 18));
+    console.log(usersCreated[usersCreated.length - 1]);
+console.log("\nPublicaciones");
+for (let i = 0; i < publicaciones.length; i++) {
+    publicaciones[i] = new Publicaciones(publicaciones[i].contenido, publicaciones[i].fecha, publicaciones[i].likes, publicaciones[i].autor);
+    console.log(publicaciones[i]);
+}
+    publicaciones.push(new Publicaciones("Implosionen la base de dades employees", "2024-02-15", 100, "mendojoan"));
+    console.log(publicaciones[publicaciones.length - 1]);
+    publicaciones.push(new Publicaciones("Quiero llegar al 5 porfa", "2024-02-14", 15, "marial"));
+    console.log(publicaciones[publicaciones.length - 1]);
+
+console.log("\nComentarios");
+for (let i = 0; i < comentarios.length; i++) {
+    comentarios[i] = new Comentarios(comentarios[i].contenido, comentarios[i].fecha, comentarios[i].autor);
+    console.log(comentarios[i]);
+}
+
+getUserData("marial", comentarios, publicaciones);
+
+getAllData(usersCreated, publicaciones, comentarios);
+
+
+        
+    </script>
+</body>
+
+</html>
