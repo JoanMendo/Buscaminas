@@ -64,6 +64,12 @@ div.celda.hidden{
     user-select: none;
     
 }
+div.celda.bomba.visible {
+
+    background-image: url("bomba.jpg");
+    background-size: cover;
+
+}
 div.celda.hidden.bandera{
     background-image: url("bandera_buscaminas.png");
     background-size: cover;
