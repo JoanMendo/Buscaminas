@@ -1,0 +1,78 @@
+h1 {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+
+
+body {
+    background-color: gainsboro; 
+    
+}
+div#buscaMinas {
+    display: flex;
+    justify-content: center;
+    border: 20px inset black;
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.fila {
+    justify-content: center;
+    display: flex;
+}
+div#container {
+
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    border: 7px outset gray;
+    justify-self: center;
+    
+
+}
+
+
+div.celda.visible {
+    border: 4px outset black;   
+    background-color: gainsboro;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    width: 4px;
+    height: 4px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+div.celda.hidden{
+    border: 4px outset black;   
+    background-color: gray;
+    width: 4px;
+    height: 4px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:transparent;
+    user-select: none;
+    
+}
+div.celda.bomba.visible {
+
+    background-image: url("bomba.jpg");
+    background-size: cover;
+
+}
+div.celda.hidden.bandera{
+    background-image: url("bandera_buscaminas.png");
+    background-size: cover;
+}
