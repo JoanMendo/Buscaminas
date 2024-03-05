@@ -20,7 +20,7 @@ class Tablero {
         for (let i = 0; i < altura; i++) {
             this.tablero[i] = [];
             for (let j = 0; j < anchura; j++) {
-                let celda = new Celda(i, j);
+                let celda = new Celda(j, i);
                 this.tablero[i][j] = celda;
             }
         }
@@ -125,7 +125,8 @@ class PlayerInteraction {
                         if (this.tableroMinas.tablero[i][j].esCasillaInicial && this.tableroMinas.tablero[i][j].hasBomba === true) {
                             this.tableroMinas.tablero[i][j].hasBomba = false;
                             casilla.classList.remove('bomba');
-                            this.tableroMinas.colocarBombas(1);
+                            this.tableroMinas.minas--;
+
                             this.tableroMinas.colocarNumeros();
                             for (let i = 0; i < this.tableroMinas.altura; i++) {
                                 for (let j = 0; j < this.tableroMinas.anchura; j++) {
@@ -154,12 +155,12 @@ class PlayerInteraction {
                             this.desvelarTablero(container);
                         }
                         else if (casilla.classList.contains('bandera') === false && casilla.classList.contains('visible') === false){
+                            this.tableroMinas.tablero[i][j].isDesvelada = true;
+                            this.desvelarCerosConectados(container, this.tableroMinas.tablero, this.tableroMinas.tablero[i][j].posicionX, this.tableroMinas.tablero[i][j].posicionY);
                             casilla.classList.remove('hidden');
                             casilla.classList.add('visible');
-                            this.tableroMinas.tablero[i][j].isDesvelada = true;
-                            this.desvelarCerosConectados(casilla, this.tableroMinas.tablero[i][j]);
                             Tablero.casillasDesveladas++; 
-                            if (Tablero.casillasDesveladas === (this.tableroMinas.altura * this.tableroMinas.anchura) - this.tableroMinas.minas) {
+                            if (Tablero.casillasDesveladas >= (this.tableroMinas.altura * this.tableroMinas.anchura) - this.tableroMinas.minas) {
                                 alert('Has ganado');
                             }
                         }          
@@ -182,18 +183,38 @@ class PlayerInteraction {
             }
         }
     }
-    desvelarCerosConectados(casillaDom, casillaObject) {
-        
-        for (let i = casillaObject.posicionY-1; i< casillaObject.posicionY+1; i++) {
-            for (let j = casillaObject.posicionX-1; j < casillaObject.posicionX+1; j++) {
-                if (casillaObject.numero === 0) {
-                    if (this.tableroMinas.tablero[i][j].numero === 0) {
-                        casillaDom.classList.remove('hidden');
-                        casillaDom.classList.add('visible');
+    desvelarCerosConectados(tableroDom, tableroObject, X, Y) {
+
+                if (tableroObject [Y][X].numero === 0 && tableroDom.children[Y].children[X].classList.contains('hidden')) {
+                    tableroDom.children[Y].children[X].classList.remove('hidden');
+                    tableroDom.children[Y].children[X].classList.add('visible');
+                    if (tableroObject[Y][X-1].numero == 0 && X-1 >= 0) { 
+                        tableroDom.children[Y].children[X-1].classList.remove('hidden');
+                        tableroDom.children[Y].children[X-1].classList.add('visible');
+                        Tablero.casillasDesveladas++;
+                        this.desvelarCerosConectados(tableroDom, tableroObject[Y][X-1], tableroObject, X-1, Y)
+                    }
+                    if (tableroObject[Y][X].numero == 0 && X+1 < this.tableroMinas.anchura) {
+                        tableroDom.children[Y].children[X+1].classList.remove('hidden');
+                        tableroDom.children[Y].children[X+1].classList.add('visible');
+                        Tablero.casillasDesveladas++;
+                        this.desvelarCerosConectados(tableroDom, tableroObject[Y][X+1], tableroObject, X+1, Y)
+                    }
+                    if (tableroObject[Y][X].numero == 0 && Y+1 < this.tableroMinas.altura) {
+                        tableroDom.children[Y+1].children[X].classList.remove('hidden');
+                        tableroDom.children[Y+1].children[X].classList.add('visible');
+                        Tablero.casillasDesveladas++;
+                        this.desvelarCerosConectados(tableroDom, tableroObject[Y+1][X], tableroObject, X, Y+1)
+                    }
+                    if (tableroObject[Y][X].numero == 0 && Y-1 >= 0) {
+                        tableroDom.children[Y-1].children[X].classList.remove('hidden');
+                        tableroDom.children[Y-1].children[X].classList.add('visible');
+                        Tablero.casillasDesveladas++;
+                        this.desvelarCerosConectados(tableroDom, tableroObject[Y-1][X], tableroObject, X, Y-1)
                     }
                 }
-            }
-        }
+            
+        
         
     
     }
