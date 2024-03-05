@@ -4,7 +4,7 @@ h1 {
     transform: translate(-50%, 0);
     font-size: 50px;
     font-family: 'Courier New', Courier, monospace;
-    margin-top: 50px;
+    margin-top: 5px;
     margin-bottom: 10px;
 }
 
@@ -20,7 +20,7 @@ div#buscaMinas {
     border: 20px inset black;
     border-radius: 15px;
     position: fixed;
-    top: 50%;
+    top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
