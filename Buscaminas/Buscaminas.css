@@ -43,6 +43,8 @@ div#container {
 div.celda.visible {
     border: 4px outset black;   
     background-color: gainsboro;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
     width: 4px;
     height: 4px;
     padding: 10px;
