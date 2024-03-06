@@ -110,6 +110,12 @@ class PlayerInteraction {
         else {
             let startButton = document.getElementById('startButton');
             startButton.disabled = true;
+            let minasButton = document.getElementById('Minas');
+            minasButton.disabled = true;
+            let anchuraButton = document.getElementById('Ancho');
+            anchuraButton.disabled = true;
+            let alturaButton = document.getElementById('Alto');
+            alturaButton.disabled = true;
             let container = document.getElementById('container');
 
             for (let i = 0; i < this.tableroMinas.altura; i++) {
