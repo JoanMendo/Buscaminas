@@ -12,8 +12,6 @@ class Tablero {
         this.tablero = []; //array donde se guardaran las celdas
         this.minas = minas;
         this.generarTablero(altura, anchura); //Genera el tablero
-        this.colocarBombas(minas); //Coloca las minas en el tablero
-
     }
 
     generarTablero(altura, anchura) {
@@ -25,11 +23,19 @@ class Tablero {
             }
         }
     }
-    colocarBombas(minas) {
+    colocarBombas(minas, y , x) {
+        for (let Y = y - 1; Y <= y + 1; Y++) {
+            for (let X = x - 1; X <= x + 1; X++) {
+                if (Y >= 0 && Y < this.altura && X >= 0 && X < this.anchura) {
+                    this.tablero[Y][X].initialClick = true;
+                    Tablero.casillasDesveladas++;
+                }
+            }
+        }
         for (let i = 0; i < minas; i++) {
             let x = Math.floor(Math.random() * this.altura); // Se coloca la bomba en una posicion aleatoria donde no haya bomba
             let y = Math.floor(Math.random() * this.anchura);
-            if (this.tablero[x][y].hasBomba === true) {
+            if (this.tablero[x][y].hasBomba === true || this.tablero[x][y].initialClick === true) {
                 i--;
             } else {
                 this.tablero[x][y].hasBomba = true;
@@ -67,13 +73,10 @@ class Tablero {
                     if (i + 1 < this.altura && j + 1 < this.anchura) {
                         this.tablero[i + 1][j + 1].numero++;
                     }
-
                 }
             }
-
         }
     }
-
 }
 class Celda {
     posicionX;
@@ -82,6 +85,7 @@ class Celda {
     esCasillaInicial;
     isDesvelada = false;
     numero = 0;
+    initialClick = false;
     constructor(posicionX, posicionY) {
         this.posicionX = posicionX;
         this.posicionY = posicionY;
@@ -93,7 +97,6 @@ class Celda {
     }
 
 }
-
 class PlayerInteraction {
 
     tableroMinas; //Aqui se guardara el tablero
@@ -117,7 +120,7 @@ class PlayerInteraction {
             let alturaButton = document.getElementById('Alto');
             alturaButton.disabled = true;
             let container = document.getElementById('container');
-
+            
             for (let i = 0; i < this.tableroMinas.altura; i++) {
                 let fila = document.createElement('div');
                 fila.classList.add('fila');
@@ -126,43 +129,31 @@ class PlayerInteraction {
                     casilla = document.createElement('div');
                     casilla.classList.add('celda');
                     casilla.classList.add('hidden');
-                    if (this.tableroMinas.tablero[i][j].hasBomba) {
-                        casilla.classList.add('bomba');
-                    }
                     casilla.onclick = () => {
-                        if (this.tableroMinas.tablero[i][j].esCasillaInicial && this.tableroMinas.tablero[i][j].hasBomba === true) {
-                            this.tableroMinas.tablero[i][j].hasBomba = false;
-                            casilla.classList.remove('bomba');
-                            this.tableroMinas.minas--;
-
+                        if (this.tableroMinas.tablero[i][j].esCasillaInicial && casilla.classList.contains('bandera') === false) {
+                            this.tableroMinas.tablero[i][j].initialClick = true;
+                            this.tableroMinas.colocarBombas(this.tableroMinas.minas, i, j);
                             this.tableroMinas.colocarNumeros();
-                            for (let i = 0; i < this.tableroMinas.altura; i++) {
-                                for (let j = 0; j < this.tableroMinas.anchura; j++) {
-                                    if (this.tableroMinas.tablero[i][j].hasBomba === false) {
-                                        let casilla = container.children[i].children[j];
-                                        casilla.textContent = this.tableroMinas.tablero[i][j].numero;
 
-                                    }
-                                }
-
-                            }
-                        }
-                        else if (this.tableroMinas.tablero[i][j].esCasillaInicial) {
-                            this.tableroMinas.colocarNumeros();
                             for (let i = 0; i < this.tableroMinas.altura; i++) {
                                 for (let j = 0; j < this.tableroMinas.anchura; j++) {
                                     if (this.tableroMinas.tablero[i][j].hasBomba === false) {
                                         let casilla = container.children[i].children[j];
                                         casilla.textContent = this.tableroMinas.tablero[i][j].numero;
                                     }
+                                    if (this.tableroMinas.tablero[i][j].isDesvelada) {
+                                        let casilla = container.children[i].children[j];
+                                        casilla.classList.remove('hidden');
+                                        casilla.classList.add('visible');
+                                    }
                                 }
 
                             }
                         }
-                        if (this.tableroMinas.tablero[i][j].hasBomba && casilla.classList.contains('bandera') === false && casilla.classList.contains('visible') === false) {
+                        if (this.tableroMinas.tablero[i][j].hasBomba && casilla.classList.contains('bandera') === false && this.tableroMinas.tablero[i][j].isDesvelada === false) {
                             this.desvelarTablero(container);
                         }
-                        else if (casilla.classList.contains('bandera') === false && casilla.classList.contains('visible') === false) {
+                        else if (casilla.classList.contains('bandera') === false && this.tableroMinas.tablero[i][j].isDesvelada === false) {
                             this.tableroMinas.tablero[i][j].isDesvelada = true;
                             if (this.tableroMinas.tablero[i][j].getN() === 0 && casilla.classList.contains('hidden')) {
                                 this.desvelarCerosConectados(container, this.tableroMinas.tablero, this.tableroMinas.tablero[i][j].posicionX, this.tableroMinas.tablero[i][j].posicionY);
@@ -175,7 +166,7 @@ class PlayerInteraction {
                             Tablero.casillasDesveladas++; //Se suma 1 a las casillas desveladas
                             if (Tablero.casillasDesveladas >= (this.tableroMinas.altura * this.tableroMinas.anchura) - this.tableroMinas.minas) {
                                 alert('Has ganado'); //Si todas las casillas menos las minas estan desveladas, has ganado
-                                this.desactivarTablero(container);
+                                this.desvelarTablero(container);
                             }
                         }
                     }
@@ -187,15 +178,17 @@ class PlayerInteraction {
         }
     }
     desvelarTablero(container) { //Revela las bombas si fallas
-        alert('Has perdido');
+        if (Tablero.casillasDesveladas < (this.tableroMinas.altura * this.tableroMinas.anchura) - this.tableroMinas.minas)
+            alert('Has perdido');
         for (let i = 0; i < this.tableroMinas.altura; i++) {
             let fila = container.children[i];
             for (let j = 0; j < this.tableroMinas.anchura; j++) {
-                if (this.tableroMinas.tablero[i][j].hasBomba) { 
+                if (this.tableroMinas.tablero[i][j].hasBomba) {
+                    fila.children[j].classList.add('bomba'); //Desvela la casilla
                     fila.children[j].classList.remove('hidden'); //Desvela la casilla
                     fila.children[j].classList.add('visible');
                 }
-                
+
             }
         }
         this.desactivarTablero(container);
@@ -205,7 +198,7 @@ class PlayerInteraction {
             let fila = container.children[i];
             for (let j = 0; j < this.tableroMinas.anchura; j++) {
                 fila.children[j].onclick = null;
-                
+
             }
         }
     }
@@ -214,35 +207,37 @@ class PlayerInteraction {
         tableroDom.children[Y].children[X].classList.add('visible');
         tableroObject[Y][X].isDesvelada = true;
         if (tableroObject[Y][X].getN() == 0 && X - 1 >= 0 && tableroObject[Y][X - 1].isDesvelada === false) {
-
             Tablero.casillasDesveladas++; //Se suma 1 a las casillas desveladas
             this.desvelarCerosConectados(tableroDom, tableroObject, X - 1, Y); //Es recursivo, por lo que se llama a si mismo hasta que no haya mas 0 conectados
-
         }
         if (tableroObject[Y][X].getN() == 0 && X + 1 < this.tableroMinas.anchura && tableroObject[Y][X + 1].isDesvelada === false) {
-
             Tablero.casillasDesveladas++;
             this.desvelarCerosConectados(tableroDom, tableroObject, X + 1, Y);
-
         }
         if (tableroObject[Y][X].getN() == 0 && Y + 1 < this.tableroMinas.altura && tableroObject[Y + 1][X].isDesvelada === false) {
-
             Tablero.casillasDesveladas++;
             this.desvelarCerosConectados(tableroDom, tableroObject, X, Y + 1);
-
+        }
+        if (tableroObject[Y][X].getN() == 0 && Y + 1 < this.tableroMinas.altura && X - 1 >= 0 && tableroObject[Y + 1][X - 1].isDesvelada === false) {
+            Tablero.casillasDesveladas++;
+            this.desvelarCerosConectados(tableroDom, tableroObject, X - 1, Y + 1);
+        }
+        if (tableroObject[Y][X].getN() == 0 && Y + 1 < this.tableroMinas.altura && X + 1 < this.tableroMinas.anchura && tableroObject[Y + 1][X + 1].isDesvelada === false) {
+            Tablero.casillasDesveladas++;
+            this.desvelarCerosConectados(tableroDom, tableroObject, X + 1, Y + 1);
         }
         if (tableroObject[Y][X].getN() == 0 && Y - 1 >= 0 && tableroObject[Y - 1][X].isDesvelada === false) {
-
             Tablero.casillasDesveladas++;
             this.desvelarCerosConectados(tableroDom, tableroObject, X, Y - 1);
-
         }
-        //Mira solo las 4 casillas adyacentes, no las diagonales, para no desvelar casillas que no deberian ser desveladas
-
-
-
-
-
+        if (tableroObject[Y][X].getN() == 0 && Y - 1 >= 0 && X - 1 >= 0 && tableroObject[Y - 1][X - 1].isDesvelada === false) {
+            Tablero.casillasDesveladas++;
+            this.desvelarCerosConectados(tableroDom, tableroObject, X - 1, Y - 1);
+        }
+        if (tableroObject[Y][X].getN() == 0 && Y - 1 >= 0 && X + 1 < this.tableroMinas.anchura && tableroObject[Y - 1][X + 1].isDesvelada === false) {
+            Tablero.casillasDesveladas++;
+            this.desvelarCerosConectados(tableroDom, tableroObject, X + 1, Y - 1);
+        }
     }
 }
 
