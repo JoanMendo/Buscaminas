@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario</title>
+
+    <script src="formulario.js" defer></script>
+</head>
+<!-- Tenemos un formulario de entrada de información del usuario con datos básicos:
+nombre
+apellido
+fechaNacimiento → Debe ser mayor de edad
+nick → Debe acabar por un número
+mail → Debe ser un correo del ITB.
+filas
+columnas
+bombas
+puntuación
+Más campos que consideres necesarios con su respectiva validación.
+ -->
+<body> 
+    <form>
+        <div>
+            <label for="Nombre">Nombre</label>
+            <input type="text" id="Nombre" required>
+        </div>
+        <div>
+            <label for="Apellido">Apellido</label>
+            <input type="text" id="Apellido" required>
+        </div>
+        <div>
+            <label for="FechaNacimiento">Fecha de Nacimiento</label>
+            <input type="date" id="FechaNacimiento" required>
+        </div>
+        <div >
+            <label for="Nick">Nick</label>
+            <input type="text" id="Nick" required>
+        </div>
+        <div>
+            <label for="Mail">Mail</label>
+            <input type="email" id="Mail" required>
+        </div>
+        <div >
+            <label for="Filas">Filas</label>
+            <input type="number" id="Filas" min="8" max="24" value="24" required>
+        </div>
+        <div>
+            <label for="Columnas">Columnas</label>
+            <input type="number" id="Columnas" min="8" max="32" value="32" required>
+        </div>
+        <div>
+            <label for="Bombas">Bombas</label>
+            <input type="number" id="Bombas" min="1" max="252" value="250" required>
+        </div>
+        
+        <div>
+            <label for="Password">Contraseña</label>
+            <input type="password" id="Password" required>
+        </div>
+       </form>
+        
+</body>
+</html>
