@@ -2,6 +2,7 @@ class Celda {
     posicionX;
     posicionY;
     hasBomba = false;
+    hasBandera = false;
     esCasillaInicial;
     isDesvelada = false;
     numero = 0;

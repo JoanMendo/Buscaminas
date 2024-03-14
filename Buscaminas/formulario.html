@@ -2,8 +2,9 @@
 <html>
 <head>
     <title>Formulario</title>
+    <link rel="stylesheet" type="text/css" href="formulario.css">
 
-    <script src="formulario.js" defer></script>
+    <script src="PlayerInteraction.js" defer></script>
 </head>
 <!-- Tenemos un formulario de entrada de información del usuario con datos básicos:
 nombre
@@ -49,14 +50,38 @@ Más campos que consideres necesarios con su respectiva validación.
         </div>
         <div>
             <label for="Bombas">Bombas</label>
-            <input type="number" id="Bombas" min="1" max="252" value="250" required>
+            <input type="number" id="Bombas" min="1" max="252" value="252" required>
         </div>
         
         <div>
             <label for="Password">Contraseña</label>
             <input type="password" id="Password" required>
         </div>
+        <div>
+            <label for="Number">Numero de Telefono</label>
+            <input type="number" id="Number" required>
+        </div>
+        <div>
+            <label for = "TarjetaDeCredito">Tarjeta de Credito</label>
+            <input type="number" id="TarjetaDeCredito" pattern = "[0-9]{16}"required >
+        </div>
+        <div>
+            <label for = "CaducidadTarjeta">Caducidad de la Tarjeta</label>
+            <input type="month" id="CaducidadTarjeta" required>
+        </div>
+        <div>
+            <label for="CVV">Mes</label>
+            <input type="number" id="CVV" pattern = "[0-9]{3}" required>
+        </div>
+        <div>
+            <label for="Direccion">Direccion</label>
+            <input type="text" id="Direccion" required>
+        </div>
+        <button>
+            Enviar
+        </button>
        </form>
+       
         
 </body>
 </html>
