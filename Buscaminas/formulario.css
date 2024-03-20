@@ -1,0 +1,94 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(162, 199, 187);
+    border-top: 2px solid #1a1919;
+    
+    overflow: hidden;
+    
+  }
+  div#formContainer {
+    width: fit-content;
+    
+    padding: 20px;
+    margin-top: 20px;
+    
+  }
+  
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 45px;
+  }
+  
+
+  form  div label,
+  form div input {
+    display: block;
+    width: 100%;
+  }
+  
+  form div label {
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  form div input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px;
+    width : 219%;
+
+  }
+  
+
+  button:hover {
+    background-color: #0056b3;
+  }
+  input:invalid {
+    border-color: red;
+  }
+  input,
+  input:valid {
+    border-color: #ccc;
+  }
+  img#ImgIzquierda {
+    position: fixed;
+    background-color:black;
+    border-right: 2px solid #1a1919;
+    left: 0;
+    width: 33vh; /* Adjust as needed */
+   height: 100vh; /* Occupies full height of the viewport */
+}
+img#ImgDerecha {
+  position: fixed;
+  border-left: 2px solid #1a1919;
+  background-color:black;
+  right: 0;
+  width: 33vh; /* Adjust as needed */
+ height: 100vh; /* Occupies full height of the viewport */
+}
+
+ 
