@@ -8,69 +8,84 @@
 </head>
 
 <body>
+    <img id = "Fondo"></img>
     <img id = "ImgIzquierda" src = "images/AnuncioIzquierda.gif"></img>
     <div id="formContainer">
-        <form id = "Form" action = "/">
+        <form id = "Form" >
             <div>
                 <label for="Nombre">Nombre</label>
                 <input type="text" id="Nombre" 
                     title="Debe contener solo caracteres alfabeticos, de 2 a 30" >
+                    <span id = "ErrorNombre" class = "Error"></span>
                     
             </div>
             <div>
                 <label for="Apellido">Apellido</label>
                 <input type="text" id="Apellido" 
                     title="Debe contener solo caracteres alfabeticos, de 2 a 30">
+                    <span id = "ErrorApellido" class = "Error"></span>
             </div>
             <div>
                 <label for="FechaNacimiento">Fecha de Nacimiento</label>
                 <input type="date" id="FechaNacimiento" >
+                <span id = "ErrorFechaNacimiento" class = "Error"></span>
             </div>
             <div>
                 <label for="Nick">Nick</label>
                 <input type="text" id="Nick"
                 title="Debe contener solo caracteres alfabeticos, de 2 a 60">
+                <span id = "ErrorNick" class = "Error"></span>
             </div>
             <div>
                 <label for="Mail">Mail</label>
                 <input type="email" id="Mail">
+                <span id = "ErrorMail" class = "Error"></span>
             </div>
             <div>
                 <label for="Filas">Filas</label>
                 <input type="number" id="Filas" min="8" max="24" value="12">
+                <span id = "ErrorFilas" class = "Error"></span>
             </div>
             <div>
                 <label for="Columnas">Columnas</label>
                 <input type="number" id="Columnas" min="8" max="32" value="12">
+                <span id = "ErrorColumnas" class = "Error"></span>
             </div>
             <div>
                 <label for="Bombas">Bombas</label>
                 <input type="number" id="Bombas" min="1" max="252" value="40">
+                <span id = "ErrorBombas" class = "Error"></span>
             </div>
 
             <div>
                 <label for="Password">Contraseña</label>
                 <input type="password" id="Password">
+                <span id = "ErrorPassword" class = "Error"></span>
             </div>
             <div>
                 <label for="Number">Numero de Telefono</label>
-                <input type="text" id="Number" >
+                <input type="text" id="Number">
+                <span id = "ErrorNumber" class = "Error"></span>
             </div>
             <div>
                 <label for="TarjetaDeCredito">Tarjeta de Credito</label>
                 <input type="text" id="TarjetaDeCredito" >
+                <span id = "ErrorTarjetaDeCredito" class = "Error"></span>
             </div>
             <div>
                 <label for="CaducidadTarjeta">Caducidad de la Tarjeta</label>
                 <input type="month" id="CaducidadTarjeta">
+                <span id = "ErrorCaducidadTarjeta" class = "Error"></span>
             </div>
             <div>
                 <label for="CVV">CVV</label>
                 <input type="text" id="CVV" >
+                <span id = "ErrorCVV" class = "Error"></span>
             </div>
             <div>
                 <label for="Direccion">Direccion</label>
                 <input type="text" id="Direccion">
+                <span id = "ErrorDireccion" class = "Error"></span>
             </div>
             <button type="submit">Enviar</button>
         </form>
